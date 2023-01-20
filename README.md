@@ -24,19 +24,20 @@ docker build -f lisp.Dockerfile -t build-amb ./ && docker run --rm -it --entrypo
 sbcl --script convert.lisp
 ```
 
-* OBS 1: Para os arquivos que são gerados pelos programas, foi colocado um '\_' antes, para que não tenha conflito em futura tentativa.
-* OBS 2: Utilizar o comando "clisp convert.lisp" (clisp version 2.49) para o projeto 'to_negative' funciona, entretanto para o segundo projeto ocasiona erro.
-* OBS 3: Com o comando sbcl --script convert.lisp, gera um log no terminal, mas foi desconsiderado (até o momento)
+* Observações:
+	* Obs 1: Para os arquivos que são gerados pelos programas, foi colocado um '\_' antes, para que não tenha conflito em futura tentativa.
+	* Obs 2: Utilizar o comando "clisp convert.lisp" (clisp version 2.49) para o projeto 'to_negative' funciona, entretanto para o segundo projeto ocasiona erro.
+	* Obs 3: Com o comando sbcl --script convert.lisp, gera um log no terminal, mas foi desconsiderado (até o momento)
 
-* Somente referente ao projeto 'small_forms':
+* Somente referente ao projeto '**small_forms**':
 
-* Rodar o comando (Processo Muito Lento): 
-```bash
-lualatex inovacao.tex 
-```
+	* Rodar o comando (Processo Muito Lento): 
+	```bash
+	lualatex inovacao.tex 
+	```
 
-* OBS 4: Rodando o dockerfile sem permissão se root (USER 1000 sem estar comentado), é necessário após o comando "lualatex inovacao.tex", apertar enter em 2 momentos (fica com o simbolo de interrogação '?'). Caso rode com root, não é necessário.
-* OBS 5: No arquivo convert.lisp, as ultimas 2 linhas estão comentadas. A primeira seria para executar 'lualatex' mas aparentemente este comando não é localizado. A segunda não é necessaria, pois iria abrir um pdf, o qual não faz sentido com o docker.
+	* Obs 4: Rodando o dockerfile sem permissão se root (USER 1000 sem estar comentado), é necessário após o comando "lualatex inovacao.tex", apertar enter em 2 momentos (fica com o simbolo de interrogação '?'). Caso rode com root, não é necessário.
+	* Obs 5: No arquivo convert.lisp, as ultimas 2 linhas estão comentadas. A primeira seria para executar 'lualatex' mas aparentemente este comando não é localizado. A segunda não é necessaria, pois iria abrir um pdf, o qual não faz sentido com o docker.
 
 ### :warning: Erros/Aprimoramentos:
 
