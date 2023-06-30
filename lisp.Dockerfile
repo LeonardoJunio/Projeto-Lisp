@@ -39,7 +39,7 @@ WORKDIR /app
 
 COPY . /app
 
-USER 1000
+#USER 1000
 
 
 

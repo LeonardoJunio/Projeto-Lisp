@@ -34,6 +34,10 @@
 	\\fill[color = #5] (#1 - #4/2, #2 + #3/2) rectangle(#1 + #4/2,#2 - #3/2);
 }
 
+\\newcommand{\\retanguloContorno}[5]{
+	\\draw[color = #5] (#1 - #4/2, #2 + #3/2) rectangle(#1 + #4/2,#2 - #3/2);
+}
+
 \\begin{document}~%~%
 
 	\\begin{tikzpicture}~%~%"
@@ -90,7 +94,7 @@
 			)
 		)
 	)	
-)1
+)
 
 (defun preencher_circulos ()
 	(loop for i from 1 to altu do
@@ -114,6 +118,28 @@
 	)
 )
 
+(defun contorno_circulos ()
+	(loop for i from 1 to altu do
+		(loop for j from 1 to larg do
+			(setq red (read imagem))
+			(setq green (read imagem))
+			(setq blue (read imagem))
+
+			(setq coorx (* j (/ larg_pagina larg)))
+			(setq coory (- 0 (* i (/ altu_pagina altu))))
+
+			(format out
+				"		\\definecolor{cor}{RGB}{~S, ~S, ~S};~%"
+				red green blue
+			)
+			(format out
+				"		\\draw[color = cor] (~S, ~S) circle(~S);~%~%" 
+				coorx coory raio
+			)
+		)	
+	)
+)
+
 (defun preencher_elipses ()
 	(setq razao_larg (/ larg_pagina larg))
 	(setq razao_altu (/ altu_pagina altu))
@@ -127,7 +153,7 @@
 			(setq green (read imagem))
 			(setq blue (read imagem))
 			
-			(setq coorx (* j razao_larg))u
+			(setq coorx (* j razao_larg))
 			(setq coory (- 0 (* i razao_altu)))
 
 			(format out
@@ -136,6 +162,34 @@
 			)
 			(format out
 				"		\\fill[color = cor] (~S, ~S) ellipse(~S and ~S);~%~%" 
+				coorx coory raio_larg raio_altu
+			)
+		)	
+	)
+)
+
+(defun contorno_elipses ()
+	(setq razao_larg (/ larg_pagina larg))
+	(setq razao_altu (/ altu_pagina altu))
+
+	(setq raio_larg (/ razao_larg 2))
+	(setq raio_altu (/ razao_altu 2))			
+
+	(loop for i from 1 to altu do
+		(loop for j from 1 to larg do
+			(setq red (read imagem))
+			(setq green (read imagem))
+			(setq blue (read imagem))
+			
+			(setq coorx (* j razao_larg))
+			(setq coory (- 0 (* i razao_altu)))
+
+			(format out
+				"		\\definecolor{cor}{RGB}{~S, ~S, ~S};~%"
+				red green blue
+			)
+			(format out
+				"		\\draw[color = cor] (~S, ~S) ellipse(~S and ~S);~%~%" 
 				coorx coory raio_larg raio_altu
 			)
 		)	
@@ -160,6 +214,31 @@
 			)
 			(format out
 				"		\\retangulo{~S}{~S}{~S}{~S}{cor}~%"
+				;"		\\fill[color = cor] (~S, ~S) \crule(~S);~%~%" 
+				coorx coory aresta aresta
+			)
+		)	
+	)
+)
+
+(defun contorno_quadrados ()
+	(setq aresta (* raio 2))
+
+	(loop for i from 1 to altu do
+		(loop for j from 1 to larg do
+			(setq red (read imagem))
+			(setq green (read imagem))
+			(setq blue (read imagem))
+
+			(setq coorx (* j (/ larg_pagina larg)))
+			(setq coory (- 0 (* i (/ altu_pagina altu))))
+
+			(format out
+				"		\\definecolor{cor}{RGB}{~S, ~S, ~S};~%"
+				red green blue
+			)
+			(format out
+				"		\\retanguloContorno{~S}{~S}{~S}{~S}{cor}~%"
 				;"		\\fill[color = cor] (~S, ~S) \crule(~S);~%~%" 
 				coorx coory aresta aresta
 			)
@@ -285,7 +364,7 @@
 
 (setq larg_pagina 18)
 (setq altu_pagina 27)
-(setq raio 0.1)
+(setq raio 0.015)
 
 
 ; Para gerar o negativo da imagem: 
@@ -306,10 +385,12 @@
 (inicio out)
 ; (normal)
 ; (preencher_circulos)
+; (contorno_circulos)
 ; (preencher_elipses)
 ; (preencher_quadrados)
+(contorno_quadrados)
 ; (preencher_retangulos)
-(preencher_retangulos_cinzas_average)
+; (preencher_retangulos_cinzas_average)
 ; (preencher_retangulos_cinzas_luminosity)
 ; (preencher_retangulos_negativo)
 (fim out)
