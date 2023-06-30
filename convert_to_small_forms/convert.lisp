@@ -362,6 +362,30 @@
 	)
 )
 
+(defun preencher_simboxo_x ()
+	(setq aresta (* raio 2))
+
+	(loop for i from 1 to altu do
+		(loop for j from 1 to larg do
+			(setq red (read imagem))
+			(setq green (read imagem))
+			(setq blue (read imagem))
+
+			(setq coorx (* j (/ larg_pagina larg)))
+			(setq coory (- 0 (* i (/ altu_pagina altu))))
+
+			(format out
+				"		\\definecolor{cor}{RGB}{~S, ~S, ~S};~%"
+				red green blue
+			)
+			(format out
+				"		\\node[font=\\tiny,scale=0.5,color=cor] at (~S,~S) {x};~%~%";
+				coorx coory
+			)
+		)	
+	)
+)
+
 (setq larg_pagina 18)
 (setq altu_pagina 27)
 (setq raio 0.015)
@@ -388,11 +412,12 @@
 ; (contorno_circulos)
 ; (preencher_elipses)
 ; (preencher_quadrados)
-(contorno_quadrados)
+; (contorno_quadrados)
 ; (preencher_retangulos)
 ; (preencher_retangulos_cinzas_average)
 ; (preencher_retangulos_cinzas_luminosity)
 ; (preencher_retangulos_negativo)
+(preencher_simboxo_x)
 (fim out)
 
 (close out)
