@@ -29,7 +29,7 @@ clisp convert.lisp
 * Referring to the project '**small_forms**':
 	* Run the following command to generate the PDF (slow process): 
 	```bash
-lualatex inovacao.tex 
+	lualatex inovacao.tex 
 	```
 
 	* Obs 2: Running the dockerfile without root permissions (USER 1000 without being commented out), after the command "lualatex inovacao.tex", it is necessary to press 'enter' in 2 moments (it gets the question symbol '?').
